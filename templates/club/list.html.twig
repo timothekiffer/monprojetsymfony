@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des clubs{% endblock %}
+
+{% block body %}
+
+<h1>Liste des Clubs de la Ligue 3il</h1>
+{% for club in clubs %}
+    <div>
+        <h2>{{ club.nom }}</h2>
+        <p>{{ club.ville }}</p>
+        <p>{{ club.description }}</p>
+    </div>
+{% endfor %}
+
+{% endblock %}
