@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\JoueurRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JoueurRepository::class)]
@@ -27,6 +28,15 @@ class Joueur
 
     #[ORM\Column]
     private ?bool $blesse = null;
+
+    #[ORM\Column]
+    private ?bool $actif = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_creation = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_modification = null;
 
     #[ORM\ManyToOne(inversedBy: 'joueurs')]
     #[ORM\JoinColumn(nullable: false)]
@@ -105,6 +115,42 @@ class Joueur
     public function setClub(?Club $club): self
     {
         $this->club = $club;
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $date_creation): self
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getDateModification(): ?\DateTimeInterface
+    {
+        return $this->date_modification;
+    }
+
+    public function setDateModification(?\DateTimeInterface $date_modification): self
+    {
+        $this->date_modification = $date_modification;
 
         return $this;
     }
