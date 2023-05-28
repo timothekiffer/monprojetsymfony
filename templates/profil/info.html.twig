@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">{{ flashMessage }}</div>
+{% endfor %}
+
+<h1>Mon compte</h1>
+
+<p>Nom : {{ nom }}</p>
+<p>Prénom : {{ prenom }}</p>
+<p>Email : {{ email }}</p>
+<p>Date de création du compte : le {{ date_creation|date('d/m/Y') }}</p>
+<a href="{{ path('app_change_password') }}" class="btn btn-primary">Changement de mot de passe</a>
+{% endblock %}

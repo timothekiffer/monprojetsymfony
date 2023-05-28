@@ -54,6 +54,12 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez entrez un email',
                     ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'Votre prénom doit avoir au minimum {{ limit }} caractère',
+                        'max' => 50,
+                        'maxMessage' => 'Votre prénom doit avoir au maximum {{ limit }} caractères',
+                    ]),
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -82,7 +88,7 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 8,
                         'minMessage' => 'Votre mot de passe doit avoir au minimum {{ limit }} caractères',
-                        'max' => 100,
+                        'max' => 50,
                         'maxMessage' => 'Votre mot de passe doit avoir au maximum {{ limit }} caractères',
                     ]),
                     new Regex([
