@@ -14,10 +14,7 @@ class ProfilController extends AbstractController
         $user = $this->getUser();
 
         return $this->render('profil/info.html.twig', [
-            'nom' => $user->getNom(),
-            'prenom' => $user->getPrenom(),
-            'email' => $user->getEmail(),
-            'date_creation' => $user->getDateCreation(),
+            'user' => $user,
         ]);
     }
 }

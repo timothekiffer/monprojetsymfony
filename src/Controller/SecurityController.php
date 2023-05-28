@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints\Length;
@@ -41,7 +42,7 @@ class SecurityController extends AbstractController
 
     #[IsGranted("IS_AUTHENTICATED_FULLY")] // accessible seulement pour les utilisateurs connectés
     #[Route('/changepassword', name: 'app_change_password')]
-    public function changepassword(Request $request, EntityManagerInterface $manager): Response
+    public function changepassword(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         // récupère l'utilisateur connecté sous forme d'objet
         $user = $this->getUser();
@@ -93,9 +94,14 @@ class SecurityController extends AbstractController
             // cette valeur est stockée en clair
             $plainPwd = $form['plainPwd']->getData();
             
-            // hache la valeur de plainPwd avec la méthode PASSWORD_ARGON2ID
+            // hache la valeur de plainPwd
             // puis stocke la valeur en tant que nouveau mot de passe de l'utilisateur
-            $user->setPassword(password_hash($plainPwd, PASSWORD_ARGON2ID));
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $plainPwd
+                )
+            );
             
             // informe Doctrine que l'on veut ajouter l'objet $user à la BDD (c'est-à-dire modifier l'utilisateur existant)
             $manager->persist($user);

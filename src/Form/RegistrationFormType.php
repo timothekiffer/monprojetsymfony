@@ -33,6 +33,10 @@ class RegistrationFormType extends AbstractType
                         'max' => 25,
                         'maxMessage' => 'Votre nom doit avoir au maximum {{ limit }} caractères',
                     ]),
+                    new Regex([
+                        'pattern' => '/^[a-zA-ZàâäéèêëïîôöùûüÿçÀÂÄÇÉÈÊËÏÎÑñÔÖÙÜÛŸ\'\s]+$/u',
+                        'message' => 'Le nom ne doit contenir que des lettres, des espaces ou des apostrophes.',
+                    ]),
                 ],
             ])
             ->add('prenom', TextType::class, [
@@ -45,6 +49,10 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Votre prénom doit avoir au minimum {{ limit }} caractère',
                         'max' => 25,
                         'maxMessage' => 'Votre prénom doit avoir au maximum {{ limit }} caractères',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z0-9àâäéèêëïîôöùûüÿçÀÂÄÇÉÈÊËÏÎÑñÔÖÙÜÛŸ\'\s]+$/u',
+                        'message' => 'Le prénom ne doit contenir que des lettres, des chiffres, des espaces ou des apostrophes.',
                     ]),
                 ],
                 'label' => 'Prénom',
@@ -59,6 +67,10 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Votre prénom doit avoir au minimum {{ limit }} caractère',
                         'max' => 50,
                         'maxMessage' => 'Votre prénom doit avoir au maximum {{ limit }} caractères',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[a-z0-9@.\s]+$/u',
+                        'message' => 'Le mail ne doit contenir que des lettres, des chiffres ou des points.',
                     ]),
                 ],
             ])

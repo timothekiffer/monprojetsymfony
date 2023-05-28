@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du club{% endblock %}
+
+{% block body %}
+
+<h1>Détails du club</h1>
+<div>
+    {{ form_start(ModifClubForm) }}
+        {% if form_errors(ModifClubForm.nom) %}
+            <div class="alert alert-danger">
+                {{ form_errors(ModifClubForm.nom) }}
+            </div>
+        {% endif %}
+        {{ form_row(ModifClubForm.nom) }}
+        {{ form_row(ModifClubForm.ville) }}
+        {{ form_row(ModifClubForm.description) }}
+
+        <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+    {{ form_end(ModifClubForm) }}
+</div>
+
+{% endblock %}

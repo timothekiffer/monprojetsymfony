@@ -9,6 +9,7 @@
     <p>Adresse : {{ club.ville }}</p>
     <p>Description : {{ club.description }}</p>
 </div>
-<a href="{{ path('app_club_joueurs', {id: club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
+<a href="{{ path('app_club_modif', {'id': club.id}) }}" class="btn btn-primary">Modifier</a>
+<a href="{{ path('app_club_joueurs', {'id': club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
 
 {% endblock %}
