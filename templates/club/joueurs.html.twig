@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des joueurs{% endblock %}
+
+
+{% block body %}
+
+<style>
+.joueurs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.joueur {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 23%;
+    margin-bottom: 20px;
+}
+
+.joueur img {
+    width: 70%;
+}
+
+.joueur h2 {
+    margin: 10px 0;
+}
+
+/* Masquer les joueurs non visibles */
+.joueur.hidden {
+    display: none;
+}
+
+/* Styliser les boutons de pagination */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #f2f2f2;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background-color: #ddd;
+}
+
+.pagination .page-btn.active {
+    background-color: #333;
+    color: #fff;
+}
+
+</style>
+
+
+    <h1>Liste des joueurs du club {{ club.nom }}</h1>
+    {% if joueurs|length > 0 %}
+        <div class="joueurs-container">
+            {% for joueur in joueurs %}
+                <div class="joueur {% if loop.index > 4 %}hidden{% endif %}">
+                    <h2>{{ joueur.prenom }} {{ joueur.nom }}</h2>
+                    <h2>{{ joueur.age }} ans</h2>
+                    {% if joueur.photo is not null %}
+                        <img src="{{ asset('images/joueurs/' ~ joueur.photo) }}">
+                    {% else %}
+                        <span>Aucune photo disponible</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            {% set totalPages = (joueurs|length / 4)|round(0, 'ceil') %}
+            {% if totalPages > 1 %}
+                <div class="page-buttons">
+                    {% for page in 1..totalPages %}
+                        <button class="page-btn {% if page == 1 %}active{% endif %}">{{ page }}</button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Aucun joueur trouvé pour ce club.</p>
+    {% endif %}
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const joueursContainer = document.querySelector('.joueurs-container');
+        const joueurs = Array.from(joueursContainer.getElementsByClassName('joueur'));
+        const pageButtons = Array.from(document.getElementsByClassName('page-btn'));
+
+        function showPage(page) {
+            joueurs.forEach(function(joueur, index) {
+                if (index >= (page - 1) * 4 && index < page * 4) {
+                    joueur.classList.remove('hidden');
+                } else {
+                    joueur.classList.add('hidden');
+                }
+            });
+        }
+
+        showPage(1);
+
+        pageButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const activeButton = document.querySelector('.page-btn.active');
+                activeButton.classList.remove('active');
+                button.classList.add('active');
+                const page = parseInt(button.textContent);
+                showPage(page);
+            });
+        });
+    });
+    </script>
+
+{% endblock %}

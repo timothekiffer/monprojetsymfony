@@ -45,7 +45,7 @@ class JoueurCrudController extends AbstractCrudController
         yield TextField::new('nom');
         yield TextField::new('prenom');
         yield IntegerField::new('age');
-        yield ImageField::new('photo')->setUploadDir('public/images/')->hideOnIndex();
+        yield ImageField::new('photo')->setUploadDir('public/images/joueurs/')->hideOnIndex();
         yield BooleanField::new('blesse');
         yield BooleanField::new('actif');
         yield DateTimeField::new('date_creation');

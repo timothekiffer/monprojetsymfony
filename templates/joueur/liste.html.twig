@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des joueurs{% endblock %}
+
+{% block body %}
+
+<h1>Liste des Joueurs de la Ligue 3il</h1>
+{% for joueur in joueurs %}
+    <div>
+        <h2>{{ joueur.prenom }} {{ joueur.nom }}</h2>
+        <h2>{{ joueur.age }} ans</h2>
+        <img src="{{ asset('images/joueurs/' ~ joueur.photo) }}">
+    </div>
+{% endfor %}
+
+{% endblock %}

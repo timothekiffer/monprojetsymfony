@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du club{% endblock %}
+
+{% block body %}
+
+<h1>Détails du club {{ club.nom }}</h1>
+<div>
+    <p>Adresse : {{ club.ville }}</p>
+    <p>Description : {{ club.description }}</p>
+</div>
+<a href="{{ path('app_club_joueurs', {id: club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
+
+{% endblock %}

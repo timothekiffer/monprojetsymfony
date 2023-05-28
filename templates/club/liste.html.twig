@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des clubs{% endblock %}
+
+{% block body %}
+
+<h1>Liste des Clubs de la Ligue 3il</h1>
+{% for club in clubs %}
+    <div>
+        <h2>
+            <a href="{{ path('app_club_detail', {'id': club.id}) }}">
+                {{ club.nom }}
+            </a>
+        </h2>
+        <p>{{ club.ville }}</p>
+    </div>
+{% endfor %}
+
+{% endblock %}
