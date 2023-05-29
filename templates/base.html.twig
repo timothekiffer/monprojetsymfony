@@ -13,32 +13,15 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ path('app_home')}}">Accueil</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li {% if app.request.requesturi starts with "/club" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                    <a class="nav-link" href="{{ path('app_club')}}">Clubs</a>
-                </li>
-                <li {% if app.request.requesturi starts with "/joueur" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                    <a class="nav-link" href="{{ path('app_joueur')}}">Joueurs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Rencontres</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
     </head>
+
     <body>
-        {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="alert alert-success">{{ flashMessage }}</div>
-        {% endfor %}
-        {% block body %}{% endblock %}
+        {% include 'layout/navbar.html.twig' %}
+        <div class="container-fluid">
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">{{ flashMessage }}</div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

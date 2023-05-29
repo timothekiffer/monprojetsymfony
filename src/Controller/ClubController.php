@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Club;
 use App\Form\ModifClubFormType;
+use App\Form\NewClubFormType;
 use App\Repository\ClubRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,37 +24,6 @@ class ClubController extends AbstractController
 
         return $this->render('club/liste.html.twig', [
             'clubs' => $clubs,
-        ]);
-    }
-
-    #[Route('/club/{id}', name: 'app_club_detail')]
-    public function detail(ClubRepository $clubRepository, int $id): Response
-    {
-        $club = $clubRepository->find($id);
-
-        if (!$club) {
-            throw $this->createNotFoundException('Club non trouvé');
-        }
-
-        return $this->render('club/detail.html.twig', [
-            'club' => $club,
-        ]);
-    }
-
-    #[Route('/club/{id}/joueurs', name: 'app_club_joueurs')]
-    public function joueurs(ClubRepository $clubRepository, int $id, int $page = 1): Response
-    {
-        $club = $clubRepository->find($id);
-
-        if (!$club) {
-            throw $this->createNotFoundException('Club non trouvé');
-        }
-
-        $joueurs = $club->getJoueurs();
-
-        return $this->render('club/joueurs.html.twig', [
-            'club' => $club,
-            'joueurs' => $joueurs,
         ]);
     }
 
@@ -86,9 +57,8 @@ class ClubController extends AbstractController
         ]);
     }
 
-    
+    #[IsGranted("ROLE_LIGUE")]
     #[Route('/club/supprimer/{id}', name:'app_club_supprimer')]
-    
     public function supprimer(int $id, EntityManagerInterface $manager, ClubRepository $clubRepository): Response
     {
         $club = $clubRepository->find($id);
@@ -102,5 +72,64 @@ class ClubController extends AbstractController
         
         $this->addFlash('success', 'Le club a été supprimé avec succès.');
         return $this->redirectToRoute('app_club');
+    }
+
+    #[IsGranted("ROLE_LIGUE")]
+    #[Route('/club/nouveau', name:'app_club_nouveau')]
+    public function nouveau(Request $request, EntityManagerInterface $manager): Response
+    {
+        $club = new Club();
+
+        $form = $this->createForm(NewClubFormType::class, $club);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $club->setActif(1);
+            $club->setDateCreation(new DateTime('now'));
+            $club->setDateModification(new DateTime('now'));
+
+            $manager->persist($club);
+            $manager->flush();
+
+            $this->addFlash('success', 'Le club a été ajouté avec succès.');
+            return $this->redirectToRoute('app_club');
+        }
+
+        return $this->render('club/nouveau.html.twig', [
+            'NewClubForm' => $form->createView(),
+            'club' => $club
+        ]);
+    }
+
+    #[Route('/club/{id}', name: 'app_club_detail')]
+    public function detail(ClubRepository $clubRepository, int $id): Response
+    {
+        $club = $clubRepository->find($id);
+
+        if (!$club) {
+            throw $this->createNotFoundException('Club non trouvé');
+        }
+
+        return $this->render('club/detail.html.twig', [
+            'club' => $club,
+        ]);
+    }
+
+    #[Route('/club/{id}/joueurs', name: 'app_club_joueurs')]
+    public function joueurs(ClubRepository $clubRepository, int $id, int $page = 1): Response
+    {
+        $club = $clubRepository->find($id);
+
+        if (!$club) {
+            throw $this->createNotFoundException('Club non trouvé');
+        }
+
+        $joueurs = $club->getJoueurs();
+
+        return $this->render('club/joueurs.html.twig', [
+            'club' => $club,
+            'joueurs' => $joueurs,
+        ]);
     }
 }

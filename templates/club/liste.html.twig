@@ -4,7 +4,16 @@
 
 {% block body %}
 
-<h1>Liste des Clubs de la Ligue 3il <a href="" class="btn btn-success">Ajouter un club</a></h1>
+<div class="row">
+    <div class="col text-left">
+        <h1>Liste des Clubs de la Ligue 3il</h1>
+    </div>
+    <div class="col text-right">
+        {% if 'ROLE_LIGUE' in app.user.roles %}
+            <a href="{{ path('app_club_nouveau') }}" class="btn btn-success">Ajouter un club</a>
+        {% endif %}
+    </div>
+</div>
 
 <div class="row">
     {% for club in clubs %}
@@ -15,54 +24,16 @@
                         {{ club.nom }}
                     </div>
                 </a>
-                <div class="card-body text-primary">
+                <div class="card-body">
                     <p class="card-text">à {{ club.ville }}</p>
-                    <a href="{{ path('app_club_modif', {'id': club.id}) }}" class="btn btn-primary">Modifier</a>
-                    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal" data-club-id="{{ club.id }}">Supprimer</a>
+                    {% if 'ROLE_LIGUE' in app.user.roles %}
+                        <a href="{{ path('app_club_modif', {'id': club.id}) }}" class="btn btn-primary">Modifier</a>
+                        <a href="{{ path("app_club_supprimer", {"id": club.id}) }}" class="btn btn-danger">Supprimer</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     {% endfor %}
 </div>
-
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Confirmation de suppression</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Êtes-vous sûr de vouloir supprimer ce club ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-danger" id="confirmSuppressionBtn" data-dismiss="modal">Supprimer</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Récupérer le bouton de suppression dans la boîte de dialogue modale
-    var deleteButton = document.getElementById('confirmSuppressionBtn');
-
-    // Écouter l'événement de clic sur le bouton de suppression
-    deleteButton.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        // Récupérer l'ID du club à supprimer à partir des attributs data
-        var clubId = deleteButton.getAttribute('data-club-id');
-
-        // Construire l'URL de suppression en utilisant l'ID du club
-        var deleteUrl = '{{ path("app_club_supprimer", {"id": "CLUB_ID"}) }}';
-        deleteUrl = deleteUrl.replace('CLUB_ID', clubId);
-
-        // Rediriger vers l'URL de suppression
-        window.location.href = deleteUrl;
-    });
-</script>
 
 {% endblock %}

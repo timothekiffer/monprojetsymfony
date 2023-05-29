@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un club{% endblock %}
+
+{% block body %}
+
+<h1>Renseignez les informations du club</h1>
+<div>
+    {{ form_start(NewClubForm) }}
+        {{ form_row(NewClubForm.nom) }}
+        {{ form_row(NewClubForm.ville) }}
+        {{ form_row(NewClubForm.description) }}
+
+        <button type="submit" class="btn btn-success">Créer le club</button>
+    {{ form_end(NewClubForm) }}
+</div>
+
+{% endblock %}
