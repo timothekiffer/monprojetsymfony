@@ -4,16 +4,25 @@
 
 {% block body %}
 
-<h1>Détails du club {{ club.nom }}</h1>
-<div>
-    <p>Adresse : {{ club.ville }}</p>
-    <p>Description : {{ club.description }}</p>
+<h1>Détails du club</h1>
+
+<div class="card border-primary mb-3" style="max-width: 18rem;">
+    <div class="card-header">
+        Club {{ club.nom }}
+    </div>
+    <div class="card-body">
+        <p class="card-text">Adresse : {{ club.ville }}</p>
+        <p class="card-text">Description : {{ club.description }}</p>
+        {% if is_granted('ROLE_LIGUE') %}
+            <a href="{{ path('app_club_modif', {'id': club.id}) }}" class="btn btn-primary">Modifier</a>
+            <a href="{{ path('app_club_supprimer', {'id': club.id}) }}" class="btn btn-danger">Supprimer</a>
+            <br>
+        {% endif %}
+        <br>
+        {% if is_granted('ROLE_LIGUE') or is_granted('ROLE_CLUB') %}
+            <a href="{{ path('app_club_joueurs', {'id': club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
+        {% endif %}
+    </div>
 </div>
-{% if 'ROLE_LIGUE' in app.user.roles %}
-    <a href="{{ path('app_club_modif', {'id': club.id}) }}" class="btn btn-primary">Modifier</a>
-{% endif %}
-{% if 'ROLE_LIGUE' in app.user.roles or 'ROLE_CLUB' in app.user.roles%}
-    <a href="{{ path('app_club_joueurs', {'id': club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
-{% endif %}
 
 {% endblock %}

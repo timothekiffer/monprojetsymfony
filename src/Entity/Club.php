@@ -28,6 +28,12 @@ class Club
     #[ORM\Column]
     private ?bool $actif = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $points = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $buts = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_creation = null;
 
@@ -126,6 +132,30 @@ class Club
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(?int $points): self
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    public function getButs(): ?int
+    {
+        return $this->buts;
+    }
+
+    public function setButs(?int $buts): self
+    {
+        $this->buts = $buts;
 
         return $this;
     }

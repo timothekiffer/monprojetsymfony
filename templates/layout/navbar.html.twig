@@ -15,6 +15,9 @@
                         <a class="nav-link" href="{{ path('app_joueur')}}">Joueurs</a>
                     </li>
                 {% endif %}
+                <li {% if app.request.requesturi starts with "/classement" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_classement')}}">Classement</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Rencontres</a>
                 </li>

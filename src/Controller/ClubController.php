@@ -86,6 +86,8 @@ class ClubController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $club->setActif(1);
+            $club->setPoints(0);
+            $club->setButs(0);
             $club->setDateCreation(new DateTime('now'));
             $club->setDateModification(new DateTime('now'));
 

@@ -9,7 +9,7 @@
         <h1>Liste des Clubs de la Ligue 3il</h1>
     </div>
     <div class="col text-right">
-        {% if 'ROLE_LIGUE' in app.user.roles %}
+        {% if is_granted('ROLE_LIGUE') %}
             <a href="{{ path('app_club_nouveau') }}" class="btn btn-success">Ajouter un club</a>
         {% endif %}
     </div>
@@ -26,7 +26,7 @@
                 </a>
                 <div class="card-body">
                     <p class="card-text">à {{ club.ville }}</p>
-                    {% if 'ROLE_LIGUE' in app.user.roles %}
+                    {% if is_granted('ROLE_LIGUE') %}
                         <a href="{{ path('app_club_modif', {'id': club.id}) }}" class="btn btn-primary">Modifier</a>
                         <a href="{{ path("app_club_supprimer", {"id": club.id}) }}" class="btn btn-danger">Supprimer</a>
                     {% endif %}
