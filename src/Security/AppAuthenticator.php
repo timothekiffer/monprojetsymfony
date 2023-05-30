@@ -46,6 +46,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $roles = $token->getUser()->getRoles();
+        if (in_array('ROLE_ADMIN', $roles)) {
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }
+
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 

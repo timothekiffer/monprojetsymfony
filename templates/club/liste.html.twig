@@ -4,21 +4,24 @@
 
 {% block body %}
 
-<div class="row">
-    <div class="col text-left">
-        <h1>Liste des Clubs de la Ligue 3il</h1>
-    </div>
-    <div class="col text-right">
-        {% if is_granted('ROLE_LIGUE') %}
+{% if is_granted('ROLE_LIGUE') %}
+    <div class="row">
+        <div class="col text-left">
+            <h1>Liste des Clubs de la Ligue 3il</h1>
+        </div>
+        <div class="col text-right">
             <a href="{{ path('app_club_nouveau') }}" class="btn btn-success">Ajouter un club</a>
-        {% endif %}
+        </div>
     </div>
-</div>
+{% else %}
+    <h1 class="center-h1">Liste des Clubs de la Ligue 3il</h1>
+{% endif %}
+
 
 <div class="row">
     {% for club in clubs %}
         <div class="col-md-3">
-            <div class="card border-primary mb-3" style="max-width: 18rem;">
+            <div class="card border-primary mb-3 rounded" style="max-width: 18rem;">
                 <a href="{{ path('app_club_detail', {'id': club.id}) }}">
                     <div class="card-header">
                         {{ club.nom }}

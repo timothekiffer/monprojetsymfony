@@ -7,14 +7,27 @@
 <h1>Détails du club</h1>
 <div>
     {{ form_start(ModifClubForm) }}
+        {{ form_label(ModifClubForm.nom) }}
+        {{ form_widget(ModifClubForm.nom) }}
         {% if form_errors(ModifClubForm.nom) %}
             <div class="alert alert-danger">
                 {{ form_errors(ModifClubForm.nom) }}
             </div>
         {% endif %}
-        {{ form_row(ModifClubForm.nom) }}
-        {{ form_row(ModifClubForm.ville) }}
-        {{ form_row(ModifClubForm.description) }}
+        {{ form_label(ModifClubForm.ville) }}
+        {{ form_widget(ModifClubForm.ville) }}
+        {% if form_errors(ModifClubForm.ville) %}
+            <div class="alert alert-danger">
+                {{ form_errors(ModifClubForm.ville) }}
+            </div>
+        {% endif %}
+        {{ form_label(ModifClubForm.description) }}
+        {{ form_widget(ModifClubForm.description) }}
+        {% if form_errors(ModifClubForm.description) %}
+            <div class="alert alert-danger">
+                {{ form_errors(ModifClubForm.description) }}
+            </div>
+        {% endif %}
 
         <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
     {{ form_end(ModifClubForm) }}
