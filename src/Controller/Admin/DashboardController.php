@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Club;
 use App\Entity\Joueur;
 use App\Entity\Rencontre;
@@ -18,7 +19,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
-        $url = $routeBuilder->setController(ClubCrudController::class)->generateUrl();
+        $url = $routeBuilder->setController(UserCrudController::class)->generateUrl();
 
         return $this->redirect($url);
 
@@ -42,7 +43,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Ligue 3il');
+            ->setTitle('Admin Ligue 3il');
     }
 
     public function configureMenuItems(): iterable
@@ -50,6 +51,7 @@ class DashboardController extends AbstractDashboardController
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linktoRoute('Retour au site', 'fas fa-arrow-left', 'app_home');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Clubs', 'fas fa-home', Club::class);
         yield MenuItem::linkToCrud('Joueurs', 'fas fa-person-running', Joueur::class);
         yield MenuItem::linkToCrud('Rencontres', 'fas fa-futbol', Rencontre::class);

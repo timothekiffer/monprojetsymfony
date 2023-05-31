@@ -7,6 +7,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {% if app.user %}
             <ul class="navbar-nav mr-auto">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin')}}">Admin</a>
+                    </li>
+                {% endif %}
                 <li {% if app.request.requesturi starts with "/club" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
                     <a class="nav-link" href="{{ path('app_club')}}">Clubs</a>
                 </li>
