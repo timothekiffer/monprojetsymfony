@@ -27,14 +27,15 @@ class ClubController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_LIGUE")] // accessible seulement pour les utilisateurs ayant le rôle ROLE_LIGUE
+    #[IsGranted("ROLE_LIGUE")]
     #[Route('/club/{id}/modif', name: 'app_club_modif')]
     public function modifier(Request $request, EntityManagerInterface $manager, ClubRepository $clubRepository, int $id): Response
     {
         $club = $clubRepository->find($id);
 
         if (!$club) {
-            throw $this->createNotFoundException('Club non trouvé');
+            $this->addFlash('error', 'Vous essayez d\'accéder à un club qui n\'existe pas');
+            return $this->redirectToRoute('app_club');
         }
 
         $form = $this->createForm(ModifClubFormType::class, $club);
@@ -64,7 +65,8 @@ class ClubController extends AbstractController
         $club = $clubRepository->find($id);
 
         if (!$club) {
-            throw $this->createNotFoundException('Club non trouvé.');
+            $this->addFlash('error', 'Vous essayez d\'accéder à un club qui n\'existe pas');
+            return $this->redirectToRoute('app_club');
         }
 
         $manager->remove($club);
@@ -110,7 +112,8 @@ class ClubController extends AbstractController
         $club = $clubRepository->find($id);
 
         if (!$club) {
-            throw $this->createNotFoundException('Club non trouvé');
+            $this->addFlash('error', 'Vous essayez d\'accéder à un club qui n\'existe pas');
+            return $this->redirectToRoute('app_club');
         }
 
         return $this->render('club/detail.html.twig', [
@@ -118,13 +121,15 @@ class ClubController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/club/{id}/joueurs', name: 'app_club_joueurs')]
     public function joueurs(ClubRepository $clubRepository, int $id, int $page = 1): Response
     {
         $club = $clubRepository->find($id);
 
         if (!$club) {
-            throw $this->createNotFoundException('Club non trouvé');
+            $this->addFlash('error', 'Vous essayez d\'accéder à un club qui n\'existe pas');
+            return $this->redirectToRoute('app_club');
         }
 
         $joueurs = $club->getJoueurs();

@@ -4,13 +4,50 @@
 
 {% block body %}
 
-<h1>Renseignez les informations du club</h1>
+<h1 class="center-h1">Renseignez les informations du club</h1>
+<br>
+
 <div>
     {{ form_start(NewClubForm) }}
-        {{ form_row(NewClubForm.nom) }}
-        {{ form_row(NewClubForm.ville) }}
-        {{ form_row(NewClubForm.description) }}
+        <label class="form-label">
+            {{ form_label(NewClubForm.nom, "Nom") }}
+        </label>
+        {% if form_errors(NewClubForm.nom) %}
+            {{ form_widget(NewClubForm.nom, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewClubForm.nom) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewClubForm.nom, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
 
+        <label class="form-label">
+            {{ form_label(NewClubForm.ville, "Ville") }}
+        </label>
+        {% if form_errors(NewClubForm.ville) %}
+            {{ form_widget(NewClubForm.ville, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewClubForm.ville) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewClubForm.ville, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(NewClubForm.description, "Description") }}
+        </label>
+        {% if form_errors(NewClubForm.description) %}
+            {{ form_widget(NewClubForm.description, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewClubForm.description) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewClubForm.description, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+
+        <br>
         <button type="submit" class="btn btn-success">Créer le club</button>
     {{ form_end(NewClubForm) }}
 </div>

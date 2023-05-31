@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{{ path('app_home')}}">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,24 +27,34 @@
                     <a class="nav-link" href="">Rencontres</a>
                 </li>
             </ul>
-        {% endif %}
-        <ul class="navbar-nav">
-            {% if not app.user %}
-                <li {% if app.request.requesturi == path('app_login') %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                </li>
-                <li {% if app.request.requesturi == path('app_register') %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
-                </li>
-            {% endif %}
-            {% if app.user %}
+            <ul class="navbar-nav">
                 <li {% if app.request.requesturi starts with "/profil" or app.request.requesturi starts with "/changepassword"%} class="nav-item active" {% else %} class="nav-item" {% endif %}>
                     <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                 </li>
-            {% endif %}
-        </ul>
+            </ul>
+        {% else %}
+            <ul class="navbar-nav mr-auto">
+                <li {% if app.request.requesturi starts with "/club" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_club')}}">Clubs</a>
+                </li>
+                <li {% if app.request.requesturi starts with "/classement" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_classement')}}">Classement</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Rencontres</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li {% if app.request.requesturi == path('app_login') %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+                <li {% if app.request.requesturi == path('app_register') %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+            </ul>
+        {% endif %}
     </div>
 </nav>

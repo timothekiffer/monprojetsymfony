@@ -4,31 +4,51 @@
 
 {% block body %}
 
-<h1>Détails du club</h1>
+<h1 class="center-h1">Rentrez les nouvelles informations du club</h1>
+<br>
+
 <div>
     {{ form_start(ModifClubForm) }}
-        {{ form_label(ModifClubForm.nom) }}
-        {{ form_widget(ModifClubForm.nom) }}
+
+        <label class="form-label">
+            {{ form_label(ModifClubForm.nom, "Nom") }}
+        </label>
         {% if form_errors(ModifClubForm.nom) %}
-            <div class="alert alert-danger">
+            {{ form_widget(ModifClubForm.nom, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
                 {{ form_errors(ModifClubForm.nom) }}
             </div>
+        {% else %}
+        {{ form_widget(ModifClubForm.nom, {'attr': {'class': 'form-control'}}) }}
         {% endif %}
-        {{ form_label(ModifClubForm.ville) }}
-        {{ form_widget(ModifClubForm.ville) }}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(ModifClubForm.ville, "Ville") }}
+        </label>
         {% if form_errors(ModifClubForm.ville) %}
-            <div class="alert alert-danger">
+            {{ form_widget(ModifClubForm.ville, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
                 {{ form_errors(ModifClubForm.ville) }}
             </div>
+        {% else %}
+        {{ form_widget(ModifClubForm.ville, {'attr': {'class': 'form-control'}}) }}
         {% endif %}
-        {{ form_label(ModifClubForm.description) }}
-        {{ form_widget(ModifClubForm.description) }}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(ModifClubForm.description, "Description") }}
+        </label>
         {% if form_errors(ModifClubForm.description) %}
-            <div class="alert alert-danger">
+            {{ form_widget(ModifClubForm.description, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
                 {{ form_errors(ModifClubForm.description) }}
             </div>
+        {% else %}
+        {{ form_widget(ModifClubForm.description, {'attr': {'class': 'form-control'}}) }}
         {% endif %}
 
+        <br>
         <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
     {{ form_end(ModifClubForm) }}
 </div>
