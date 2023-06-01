@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un joueur{% endblock %}
+
+{% block body %}
+
+<h1 class="center-h1">Renseignez les informations du joueur</h1>
+<br>
+
+<div>
+    {{ form_start(NewJoueurForm) }}
+        <label class="form-label">
+            {{ form_label(NewJoueurForm.nom, "Nom") }}
+        </label>
+        {% if form_errors(NewJoueurForm.nom) %}
+            {{ form_widget(NewJoueurForm.nom, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewJoueurForm.nom) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewJoueurForm.nom, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(NewJoueurForm.prenom, "Prénom") }}
+        </label>
+        {% if form_errors(NewJoueurForm.prenom) %}
+            {{ form_widget(NewJoueurForm.prenom, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewJoueurForm.prenom) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewJoueurForm.prenom, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(NewJoueurForm.age, "Âge") }}
+        </label>
+        {% if form_errors(NewJoueurForm.age) %}
+            {{ form_widget(NewJoueurForm.age, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewJoueurForm.age) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewJoueurForm.age, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(NewJoueurForm.photo, "Photo") }}
+        </label>
+        {% if form_errors(NewJoueurForm.photo) %}
+            {{ form_widget(NewJoueurForm.photo, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(NewJoueurForm.photo) }}
+            </div>
+        {% else %}
+        {{ form_widget(NewJoueurForm.photo, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(NewJoueurForm.club, "Club") }}
+        </label>
+        {{ form_widget(NewJoueurForm.club, {'attr': {'class': 'form-control'}}) }}
+        <br>
+
+        <br>
+        <button type="submit" class="btn btn-success">Créer le joueur</button>
+    {{ form_end(NewJoueurForm) }}
+</div>
+
+{% endblock %}
