@@ -1,20 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil - Ligue 3iL{% endblock %}
 
 {% block body %}
+
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .larger-text {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<header class="jumbotron text-center">
+    <h1 class="bold">Bienvenue sur le site de la Ligue 3iL</h1>
+</header>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/timot/OneDrive/Docs Onedrive/3il/I2/Framework/Projet/monprojet/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/timot/OneDrive/Docs Onedrive/3il/I2/Framework/Projet/monprojet/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p class="larger-text">Ici vous allez retrouver les clubs qui s'affrontent dans cette ligue avec un classement par saison actualisé après chaque rencontre.</p>
+        <p class="larger-text">Vous pourrez consulter les dates et lieux des rencontres à venir, et vous aurez accès à l'historique des rencontres de la saison en cours avec leur score associé.</p>
+        {% if not app.user %}
+            <p class="larger-text">Inscrivez-vous si vous souhaitez voir les joueurs qui performent dans la Ligue 3iL !</p>
+            <a href="{{ path('app_register') }}" class="btn btn-primary">S'inscrire</a>
+        {% endif %}
+    </div>
 </div>
+  
 {% endblock %}

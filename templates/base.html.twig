@@ -21,8 +21,8 @@
     </head>
 
     <body>
-        {% include 'layout/navbar.html.twig' %}
-        <div class="container-fluid">
+    {% include 'layout/navbar.html.twig' %}
+        <div {% if app.request.requesturi == path('app_home') %} class="" {% else %} class="container" {% endif %}>
             {% for flashMessage in app.session.flashbag.get('success') %}
                 <div class="alert alert-success">{{ flashMessage }}</div>
             {% endfor %}
