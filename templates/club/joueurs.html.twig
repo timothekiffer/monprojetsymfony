@@ -4,32 +4,28 @@
 
 {% block body %}
 
-<style>
-    .joueur.hidden {
-        display: none;
-    }
-</style>
+<h1 class="center-h1">Liste des joueurs du club {{ club.nom }}</h1>
+<br>
 
-<h1>Liste des joueurs du club {{ club.nom }}</h1>
 {% if joueurs|length > 0 %}
     <table id="tableau">
         <thead>
             <tr>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Âge</th>
-                <th>Photo</th>
+                <th class="text-center">Prénom</th>
+                <th class="text-center">Nom</th>
+                <th class="text-center">Âge</th>
+                <th class="text-center">Photo</th>
             </tr>
         </thead>
         <tbody>
             {% for joueur in joueurs %}
                 <tr>
-                    <td>{{ joueur.prenom }}</td>
-                    <td>{{ joueur.nom }}</td>
-                    <td>{{ joueur.age }} ans</td>
-                    <td>
+                    <td class="text-center">{{ joueur.prenom }}</td>
+                    <td class="text-center">{{ joueur.nom }}</td>
+                    <td class="text-center">{{ joueur.age }} ans</td>
+                    <td class="text-center">
                         {% if joueur.photo is not null %}
-                            <img src="{{ asset('images/joueurs/' ~ joueur.photo) }}" style="width: 30%;">
+                            <img src="{{ asset('images/joueurs/' ~ joueur.photo) }}" style="max-width: 300px; height: auto;">
                         {% else %}
                             <span>Aucune photo disponible</span>
                         {% endif %}
@@ -46,7 +42,7 @@
 $(document).ready(function() {
     $('#tableau').DataTable({
         pagingType: 'full_numbers',
-        lengthMenu: [5, 10, 20],
+        lengthMenu: [4, 10, 20],
         language: {
             "search":         "Recherche:",
             "zeroRecords":    "Aucun résultat",
@@ -59,7 +55,7 @@ $(document).ready(function() {
                 "last":       "Dernier",
                 "next":       "Suivant",
                 "previous":   "Précédent"
-    },
+            },
         }
     });
 });

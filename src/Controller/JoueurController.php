@@ -7,6 +7,7 @@ use App\Form\NewJoueurFormType;
 use App\Repository\JoueurRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,21 @@ class JoueurController extends AbstractController
         $joueurs = $joueurRepository->findAll();
 
         return $this->render('joueur/liste.html.twig', [
-            'joueurs' => $joueurs,
+            'joueurs' => $joueurs
+        ]);
+    }
+
+    #[Route('/joueur2', name: 'app_joueur_liste2')]
+    public function liste2(JoueurRepository $joueurRepository, Request $request, PaginatorInterface $paginator): Response
+    {
+        $pagination = $paginator->paginate(
+            $joueurRepository->paginationQuery(),
+            $request->query->get('page', 1),
+            4
+        );
+
+        return $this->render('joueur/liste2.html.twig', [
+            'pagination' => $pagination
         ]);
     }
 

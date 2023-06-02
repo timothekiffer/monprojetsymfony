@@ -39,20 +39,13 @@ class JoueurRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Joueur[] Returns an array of Joueur objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('j')
-//            ->andWhere('j.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('j.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('j')
+            ->orderBy('j.id', 'ASC')
+            ->getQuery()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Joueur
 //    {

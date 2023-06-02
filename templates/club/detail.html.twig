@@ -4,9 +4,10 @@
 
 {% block body %}
 
-<h1>Détails du club</h1>
+<h1 class="center-h1">Détails du club</h1>
+<br>
 
-<div class="card border-primary mb-3 rounded" style="max-width: 18rem;">
+<div class="card border-primary mb-3 mx-auto rounded" style="max-width: 30rem;">
     <div class="card-header">
         Club {{ club.nom }}
     </div>
@@ -20,7 +21,9 @@
         {% endif %}
         <br>
         {% if is_granted('ROLE_LIGUE') or is_granted('ROLE_CLUB') %}
-            <a href="{{ path('app_club_joueurs', {'id': club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
+            <div class="text-right">
+                <a href="{{ path('app_club_joueurs', {'id': club.id}) }}" class="btn btn-primary">Voir les joueurs</a>
+            </div>
         {% endif %}
     </div>
 </div>

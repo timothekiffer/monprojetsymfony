@@ -4,13 +4,57 @@
 
 {% block body %}
 
-<h1>Liste des Joueurs de la Ligue 3il</h1>
-{% for joueur in joueurs %}
-    <div>
-        <h2>{{ joueur.prenom }} {{ joueur.nom }}</h2>
-        <h2>{{ joueur.age }} ans</h2>
-        <img src="{{ asset('images/joueurs/' ~ joueur.photo) }}">
-    </div>
-{% endfor %}
+<h1 class="center-h1">Liste des Joueurs de la Ligue 3il</h1>
+<br>
+
+<table id="tableau">
+    <thead>
+        <tr>
+            <th class="text-center">Prénom</th>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Âge</th>
+            <th class="text-center">Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for joueur in joueurs %}
+            <tr>
+                <td class="text-center">{{ joueur.prenom }}</td>
+                <td class="text-center">{{ joueur.nom }}</td>
+                <td class="text-center">{{ joueur.age }} ans</td>
+                <td class="text-center">
+                    {% if joueur.photo is not null %}
+                        <img src="{{ asset('images/joueurs/' ~ joueur.photo) }}" style="max-width: 300px; height: auto;">
+                    {% else %}
+                        <span>Aucune photo disponible</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    $('#tableau').DataTable({
+        pagingType: 'full_numbers',
+        lengthMenu: [4, 10, 20],
+        language: {
+            "search":         "Recherche:",
+            "zeroRecords":    "Aucun résultat",
+            "lengthMenu":     "Nombre de joueurs par page: _MENU_",
+            "emptyTable":     "Aucune donnée",
+            "info":           "Joueur _START_ à _END_ sur _TOTAL_ joueurs",
+            "infoEmpty":      "Joueur 0 à 0 sur 0 joueurs",
+            "paginate": {
+                "first":      "Premier",
+                "last":       "Dernier",
+                "next":       "Suivant",
+                "previous":   "Précédent"
+            },
+        },
+    });
+});
+</script>
 
 {% endblock %}

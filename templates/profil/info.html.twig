@@ -4,11 +4,19 @@
 
 {% block body %}
 
-<h1>Mon compte</h1>
+<h1 class="center-h1">Mon compte</h1>
+<br>
 
-<p>Nom : {{ user.nom }}</p>
-<p>Prénom : {{ user.prenom }}</p>
-<p>Email : {{ user.email }}</p>
-<p>Date de création du compte : le {{ user.dateCreation | date('d/m/Y') }}</p>
-<a href="{{ path('app_change_password') }}" class="btn btn-primary">Changement de mot de passe</a>
+<div class="card border-dark mb-3 mx-auto rounded" style="max-width: 25rem;">
+    <div class="card-header">Mes informations</div>
+    <div class="card-body">
+        <p class="card-text">Nom : {{ user.nom }}</p>
+        <p class="card-text">Prénom : {{ user.prenom }}</p>
+        <p class="card-text">Email : {{ user.email }}</p>
+        <p class="card-text">Date de création du compte : le {{ user.dateCreation | date('d/m/Y') }}</p>
+        <div class="text-center">
+            <a href="{{ path('app_change_password') }}" class="btn btn-primary">Changement de mot de passe</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

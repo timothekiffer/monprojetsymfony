@@ -1,18 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<h1 class="center-h1">Inscrivez-vous ici !</h1>
+<br>
 
+<div class="mx-auto" style="max-width: 35rem;">
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.password.first) }}
-        {{ form_row(registrationForm.password.second) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <label class="form-label">
+            {{ form_label(registrationForm.nom, "Nom") }}
+        </label>
+        {% if form_errors(registrationForm.nom) %}
+            {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(registrationForm.nom) }}
+            </div>
+        {% else %}
+        {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
 
+        <label class="form-label">
+            {{ form_label(registrationForm.prenom, "Prénom") }}
+        </label>
+        {% if form_errors(registrationForm.prenom) %}
+            {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(registrationForm.prenom) }}
+            </div>
+        {% else %}
+        {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(registrationForm.email, "Email") }}
+        </label>
+        {% if form_errors(registrationForm.email) %}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(registrationForm.email) }}
+            </div>
+        {% else %}
+        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+
+        <label class="form-label">
+            {{ form_label(registrationForm.password.first, "Mot de passe") }}
+        </label>
+        {% if form_errors(registrationForm.password.first) %}
+            {{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(registrationForm.password.first) }}
+            </div>
+        {% else %}
+        {{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+        <br>
+        
+        <label class="form-label">
+            {{ form_label(registrationForm.password.second, "Confirmation du mot de passe") }}
+        </label>
+        {% if form_errors(registrationForm.password.second) %}
+            {{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control is-invalid'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(registrationForm.password.second) }}
+            </div>
+        {% else %}
+            {{ form_widget(registrationForm.password.second, {'attr': {'class': 'form-control'}}) }}
+        {% endif %}
+
+        <br>
         <button type="submit" class="btn btn-success">S'inscrire</button>
     {{ form_end(registrationForm) }}
+</div>
 {% endblock %}

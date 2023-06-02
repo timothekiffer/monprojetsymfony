@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des joueurs{% endblock %}
+
+{% block body %}
+
+<h1 class="center-h1">Liste des Joueurs de la Ligue 3il</h1>
+<br>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Âge</th>
+            <th class="text-center">Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for joueur in pagination %}
+            <tr>
+                <td class="text-center">{{ joueur.prenom }} {{ joueur.nom }}</td>
+                <td class="text-center">{{ joueur.age }} ans</td>
+                <td class="text-center"><img src="{{ asset('images/joueurs/' ~ joueur.photo) }}" style="max-width: 300px; height: auto;"></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+.pagination span, .pagination a{
+    text-align: center;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+}
+
+.pagination span{
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    background: rgb(33, 37, 41);
+}
+
+.pagination a{
+    color: white;
+}
+
+.current{
+    background: white !important;
+    color: black;
+}
+
+</style>
+
+
+<div class="d-flex justify-content-center align-items-center">
+    {{ knp_pagination_render(pagination) }}
+</div>
+
+{% endblock %}
